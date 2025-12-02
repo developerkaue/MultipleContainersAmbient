@@ -1,98 +1,247 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+Multiple Containers Environment - Docker Compose Project
+<p align="center"> <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a> </p>
+🎯 Project Overview
+This repository demonstrates a multi-container Docker environment running:
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Node.js/NestJS API (containerized application)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+MySQL Database (containerized database service)
 
-## Description
+The project showcases Docker container orchestration using Docker Compose to run multiple services that communicate with each other in an isolated development environment.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+🏗️ Architecture
+text
+┌─────────────────────────────────────────────┐
+│         Docker Compose Environment          │
+├─────────────────┬───────────────────────────┤
+│   Node.js API   │        MySQL Database     │
+│   Container     │        Container          │
+│   (Port: 3000)  │        (Port: 3306)       │
+└─────────────────┴───────────────────────────┘
+🚀 Quick Start
+Prerequisites
+Docker installed
 
-## Project setup
+Docker Compose installed
 
-```bash
-$ npm install
-```
+Running the Application
+bash
+# Clone the repository
+git clone <your-repository-url>
+cd MultipleContainersAmbient
 
-## Compile and run the project
+# Start all containers
+docker-compose up -d
 
-```bash
-# development
-$ npm run start
+# View running containers
+docker-compose ps
 
-# watch mode
-$ npm run start:dev
+# View logs
+docker-compose logs -f api
+Access the Application
+API: http://localhost:3000
 
-# production mode
-$ npm run start:prod
-```
+MySQL: localhost:3306
 
-## Run tests
+MySQL Credentials (defined in docker-compose.yml):
 
-```bash
-# unit tests
-$ npm run test
+Username: root
 
-# e2e tests
-$ npm run test:e2e
+Password: rootpassword
 
-# test coverage
-$ npm run test:cov
-```
+Database: mydatabase
 
-## Deployment
+📁 Project Structure
+text
+├── src/                    # NestJS API source code
+├── Dockerfile             # Node.js API container configuration
+├── docker-compose.yaml    # Multi-container orchestration
+├── .dockerignore          # Docker ignore patterns
+└── package.json          # Node.js dependencies
+🔧 Container Details
+1. API Container (api)
+Base Image: Node.js 18
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Port: 3000 → 3000
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Build Context: Current directory
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+Environment Variables: Loaded from docker-compose
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Dependencies: Installed via npm
 
-## Resources
+Health Check: Monitors API availability
 
-Check out a few resources that may come in handy when working with NestJS:
+2. MySQL Container (db)
+Base Image: MySQL:8.0
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Port: 3306 → 3306
 
-## Support
+Persistent Volume: mysql_data
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Default Database: mydatabase
 
-## Stay in touch
+Root Password: rootpassword
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Auto-initialization: Database created on first run
 
-## License
+📝 Docker Configuration Files
+Dockerfile
+dockerfile
+FROM node:18-alpine
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "run", "start:prod"]
+docker-compose.yaml
+yaml
+version: '3.8'
+services:
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USERNAME=root
+      - DB_PASSWORD=rootpassword
+      - DB_DATABASE=mydatabase
+  
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydatabase
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+volumes:
+  mysql_data:
+🛠️ Development Commands
+bash
+# Build containers
+docker-compose build
+
+# Start services in background
+docker-compose up -d
+
+# Stop services
+docker-compose down
+
+# Stop and remove volumes
+docker-compose down -v
+
+# Rebuild and restart
+docker-compose up -d --build
+
+# Access MySQL container
+docker-compose exec db mysql -u root -p
+
+# Access API container shell
+docker-compose exec api sh
+
+# View real-time logs
+docker-compose logs -f
+
+# Check container status
+docker-compose ps
+🌐 API Endpoints
+Once running, test these endpoints:
+
+bash
+# Hello World endpoint
+curl http://localhost:3000/
+
+# Health check
+curl http://localhost:3000/health
+💾 Database Persistence
+The MySQL data is persisted using Docker volumes:
+
+Volume Name: mysql_data
+
+Location: /var/lib/mysql inside container
+
+Persistence: Data survives container restarts
+
+To backup data:
+
+bash
+docker-compose exec db mysqldump -u root -prootpassword mydatabase > backup.sql
+🔍 Troubleshooting
+Common Issues
+Port already in use
+
+bash
+# Check what's using port 3000 or 3306
+netstat -ano | findstr :3000
+MySQL connection refused
+
+bash
+# Check if MySQL container is healthy
+docker-compose ps
+
+# View MySQL logs
+docker-compose logs db
+Container build errors
+
+bash
+# Clean build
+docker-compose build --no-cache
+Permission issues
+
+bash
+# Reset Docker containers
+docker system prune -a
+📚 Learning Objectives
+This project demonstrates:
+
+Multi-container Docker environments
+
+Service communication between containers
+
+Docker Compose orchestration
+
+Database containerization with persistence
+
+Environment variable management
+
+Health checks and dependency management
+
+Production-ready Docker configurations
+
+🔄 CI/CD Integration Ready
+This setup is prepared for CI/CD pipelines with:
+
+Pre-configured Docker images
+
+Environment variable management
+
+Health check endpoints
+
+Database migration support
+
+📄 License
+This project is MIT licensed.
+
+👨‍💻 Author
+Kaue Fernandes
+
+GitHub: @developerkaue
+
+Email: kauecaobiancofernandes2@gmail.com
+
+🤝 Contributing
+Feel free to submit issues and enhancement requests!
+
+Note: This is a demonstration project focusing on Docker container orchestration. The API is a simple NestJS starter with added database connectivity examples.
