@@ -1,7 +1,6 @@
 Multiple Containers Environment - Docker Compose Project
-<p align="center"> <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a> </p>
 
-🎯 Project Overview
+🎯 Project Overview:
 O objetivo desse repositório é apenas demonstrar a utilização de 2 containers funcionando ao mesmo tempo na aplicação utilizando Docker.
 
 É uma api em Node.js/NestJS extremamente básica, apenas com o código inicial, para dar ênfase na criação dos containers.
